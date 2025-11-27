@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caleb's Account</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; background: #eef2f3; }
+        img { border-radius: 50%; width: 150px; height: 150px; object-fit: cover; }
+        input { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Welcome Caleb</h1>
+<img id="profilePic" src="default.png" alt="Profile Picture"><br>
+<input type="file" id="fileInput" accept="image/*"><br>
+<button onclick="updateProfile()">Change Profile Picture</button>
+
+<p>Your balance: $<span id="balance"></span></p>
+
+<script>
+    // Set the current user dynamically
+    const currentUser = "caleb"; // For other users, change this or get from sessionStorage
+
+    // Load users data from localStorage
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Find current user
+    let userData = users.find(u => u.user === currentUser);
+
+    // Show current balance
+    document.getElementById("balance").innerText = userData ? userData.balance : "N/A";
+
+    // Show current profile picture
+    if (userData && userData.profile) {
+        document.getElementById("profilePic").src = userData.profile;
+    }
+
+    function updateProfile() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("Please select a file first!");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // Update user object
+            userData.profile = e.target.result;
+
+            // Update users array and localStorage
+            const index = users.findIndex(u => u.user === currentUser);
+            users[index] = userData;
+            localStorage.setItem("users", JSON.stringify(users));
+
+            // Update the displayed profile picture
+            document.getElementById("profilePic").src = e.target.result;
+
+            alert("Profile picture updated!");
+        };
+        reader.readAsDataURL(file);
+    }
+</script>
+
+</body>
+</html>

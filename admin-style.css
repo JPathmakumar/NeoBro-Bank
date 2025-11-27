@@ -1,0 +1,56 @@
+body {
+    font-family: Arial;
+    background: #eef1f7;
+    margin: 0;
+}
+
+header {
+    padding: 15px 25px;
+    background: #3a57e8;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout {
+    padding: 8px 15px;
+    background: #ff4b4b;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#usersContainer {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.user-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px #00000020;
+}
+
+.user-card input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.save-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #3a57e8;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
