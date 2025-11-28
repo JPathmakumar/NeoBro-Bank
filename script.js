@@ -6,9 +6,10 @@ const accounts = [
     { user: "eihan", pass: "9584", page: "eihan.html" },
     { user: "david", pass: "8385", page: "david.html" },
     { user: "meghan", pass: "1432", page: "meghan.html" },
+    { user: "preston", pass: "7502", page: "preston.html" },
 
     // Admins
-    { user: "admin", pass: "9999", page: "admin.html", admin: true },
+    { user: "jonathanadmin", pass: "Aryan2016@", page: "admin.html", admin: true },
     { user: "jamesadmin", pass: "5689", page: "admin.html", admin: true },
     { user: "vishaanadmin", pass: "bundle12", page: "admin.html", admin: true }
 ];
@@ -24,4 +25,5 @@ function login() {
     } else {
         document.getElementById("error").innerText = "Invalid username or password!";
     }
+
 }
