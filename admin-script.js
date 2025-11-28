@@ -6,7 +6,8 @@ let users = [
     { user: "caleb", pass: "9967", balance: 7000 },
     { user: "eihan", pass: "9584", balance: 2500 },
     { user: "david", pass: "8385", balance: 8000 },
-    { user: "meghan", pass: "1432", balance: 6000 }
+    { user: "meghan", pass: "1432", balance: 6000 },
+    { user: "preston", pass: "7502", balance: 2500 }
 ];
 
 // Load users from localStorage if exists
@@ -50,3 +51,4 @@ function logout() {
 }
 
 renderUsers();
+
