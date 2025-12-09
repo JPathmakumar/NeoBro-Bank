@@ -25,7 +25,7 @@ This version includes:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
-Next Version: v2.1 (Releases at 12/13/25)
+Next Version: v2.1 (Releases at 12/15/25)
 
 Planned features include:
 
