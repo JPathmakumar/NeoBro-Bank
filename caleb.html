@@ -3,23 +3,57 @@
 <head>
     <title>Caleb's Account</title>
     <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: #eef2f3; }
-        img { border-radius: 50%; width: 150px; height: 150px; object-fit: cover; }
+        body { 
+            font-family: Arial; 
+            text-align: center; 
+            padding: 50px; 
+            background: #eef2f3; 
+        }
+
+        img.profile {
+            border-radius: 50%; 
+            width: 150px; 
+            height: 150px; 
+            object-fit: cover; 
+        }
+
         input { margin-top: 20px; }
+
+        /* CREDIT CARD STYLE */
+        .card-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .credit-card {
+            width: 350px;
+            height: 200px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px #0003;
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 <body>
 
 <h1>Welcome Caleb</h1>
-<img id="profilePic" src="default.png" alt="Profile Picture"><br>
+
+<img class="profile" id="profilePic" src="default.png" alt="Profile Picture"><br>
 <input type="file" id="fileInput" accept="image/*"><br>
 <button onclick="updateProfile()">Change Profile Picture</button>
 
 <p>Your balance: $<span id="balance"></span></p>
 
+<!-- CREDIT CARD DISPLAY -->
+<div class="card-container">
+    <div id="creditCard" class="credit-card" style="background-image: url('caleb-card.png');"></div>
+</div>
+
 <script>
     // Set the current user dynamically
-    const currentUser = "caleb"; // For other users, change this or get from sessionStorage
+    const currentUser = "caleb";
 
     // Load users data from localStorage
     let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -48,7 +82,7 @@
             // Update user object
             userData.profile = e.target.result;
 
-            // Update users array and localStorage
+            // Save changes in localStorage
             const index = users.findIndex(u => u.user === currentUser);
             users[index] = userData;
             localStorage.setItem("users", JSON.stringify(users));
