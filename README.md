@@ -33,7 +33,7 @@ Planned features include:
 
 . Cleaner Login Page
 
-. More Admin Controls
+. Additional Changes to Account Pages
 
 
 
