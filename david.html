@@ -3,94 +3,176 @@
 <head>
     <title>David's Account</title>
     <style>
-        body { 
-            font-family: Arial; 
-            text-align: center; 
-            padding: 50px; 
-            background: #eef2f3; 
-        }
-
-        img.profile {
-            border-radius: 50%; 
-            width: 150px; 
-            height: 150px; 
-            object-fit: cover; 
-        }
-
-        input { margin-top: 20px; }
-
-        /* CREDIT CARD STYLE */
-        .card-container {
-            margin-top: 30px;
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8d9ff;
             display: flex;
             justify-content: center;
+            padding: 30px;
+        }
+
+        /* Phone Frame */
+        .phone {
+            width: 380px;
+            background: white;
+            border-radius: 35px;
+            box-shadow: 0 10px 30px #00000030;
+            padding: 25px;
+        }
+
+        /* Top Row */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Purple Section */
+        .balance-section {
+            background: #f5ebff;
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .spendable {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .balance {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* Card */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .credit-card {
-            width: 350px;
-            height: 200px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px #0003;
+            width: 320px;
+            height: 180px;
+            border-radius: 20px;
             background-size: cover;
             background-position: center;
+            box-shadow: 0 4px 15px #0003;
         }
+
+        /* Icon Buttons */
+        .icon-row {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+        }
+
+        .icon-btn {
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px #0002;
+            font-size: 25px;
+        }
+
+        /* Profile Pic */
+        .profile-pic {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        img.profile {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 4px solid #ddd;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #8c4bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 
-<h1>Welcome David</h1>
+<div class="phone">
 
-<img class="profile" id="profilePic" src="default.png" alt="Profile Picture"><br>
-<input type="file" id="fileInput" accept="image/*"><br>
-<button onclick="updateProfile()">Change Profile Picture</button>
+    <div class="top-bar">
+        <span>😊</span>
+        <span>🛍️</span>
+        <span>🔔</span>
+    </div>
 
-<p>Your balance: $<span id="balance"></span></p>
+    <div class="profile-pic">
+        <img id="profilePic" class="profile" src="default.png">
+    </div>
 
-<!-- CREDIT CARD DISPLAY -->
-<div class="card-container">
-    <div id="creditCard" class="credit-card" style="background-image: url('david-card.png');"></div>
+    <center>
+        <input type="file" id="fileInput" accept="image/*">
+        <button onclick="updateProfile()">Change Picture</button>
+    </center>
+
+    <div class="balance-section">
+        <div class="spendable">Spendable</div>
+        <div class="balance">$<span id="balance"></span></div>
+    </div>
+
+    <div class="card-container">
+        <div id="creditCard" class="credit-card" style="background-image:url('david-card.png')"></div>
+    </div>
+
+    <div class="icon-row">
+        <div class="icon-btn">📷</div>
+        <div class="icon-btn">💳</div>
+        <div class="icon-btn">✈️</div>
+        <div class="icon-btn">⚙️</div>
+    </div>
+
 </div>
 
 <script>
-    // Set the current user dynamically
     const currentUser = "david";
-
-    // Load users data from localStorage
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Find current user
     let userData = users.find(u => u.user === currentUser);
 
-    // Show current balance
-    document.getElementById("balance").innerText = userData ? userData.balance : "N/A";
+    // Balance
+    document.getElementById("balance").innerText = userData ? userData.balance : "0";
 
-    // Show current profile picture
+    // Profile picture
     if (userData && userData.profile) {
         document.getElementById("profilePic").src = userData.profile;
     }
 
     function updateProfile() {
-        const fileInput = document.getElementById("fileInput");
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("Please select a file first!");
-            return;
-        }
+        const file = document.getElementById("fileInput").files[0];
+        if (!file) return alert("Choose a file!");
 
         const reader = new FileReader();
-        reader.onload = function(e) {
-            // Update user object
+        reader.onload = e => {
             userData.profile = e.target.result;
 
-            // Save changes in localStorage
             const index = users.findIndex(u => u.user === currentUser);
             users[index] = userData;
+
             localStorage.setItem("users", JSON.stringify(users));
-
-            // Update the displayed profile picture
             document.getElementById("profilePic").src = e.target.result;
-
-            alert("Profile picture updated!");
         };
         reader.readAsDataURL(file);
     }
