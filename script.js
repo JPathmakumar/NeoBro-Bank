@@ -11,7 +11,6 @@ const accounts = [
     // Admins
     { user: "jonathanadmin", pass: "Aryan2016@", page: "admin.html", admin: true },
     { user: "jamesadmin", pass: "5689", page: "admin.html", admin: true },
-    { user: "vishaanadmin", pass: "bundle12", page: "admin.html", admin: true }
 ];
 
 function login() {
@@ -27,3 +26,4 @@ function login() {
     }
 
 }
+
