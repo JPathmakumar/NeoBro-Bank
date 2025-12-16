@@ -1,20 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NeoBro Bank — Personal</title>
+  <style>
+    :root{
+      --accent:green;    /* change to your brand color */
+      --muted:#f4f6f8;
+      --card-bg:#ffffff;
+      --max-width:1100px;
+      --radius:10px;
+      --gap:18px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+     
+    .logo {
+    width: 44px;
+    height: 44px;
+    object-fit: contain; /* or cover */
+    border-radius: 8px;  /* optional */
+}
+
+
+    *{box-sizing:border-box}
+    body{margin:0;color:#0b2030;background:#fff;line-height:1.4}
+    .site{max-width:var(--max-width);margin:0 auto;padding:24px}
+
+    /* header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo {
+      width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#004a7a);
+      display:inline-block;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    }
+    nav.desktop{display:flex;gap:12px;align-items:center}
+    nav.desktop a{color:#0b2030;text-decoration:none;padding:6px 8px;border-radius:6px}
+    nav.desktop a.cta{background:var(--accent);color:#fff;padding:8px 14px}
+    .signin{border:1px solid rgba(11,32,48,0.08);padding:8px 12px;border-radius:8px}
+
+    /* mobile menu toggle */
+    .menu-btn{display:none;background:none;border:0;font-size:18px}
+
+    /* Hero */
+    .hero{
+      margin-top:12px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      position:relative;
+      min-height:320px;
+      display:flex;
+      align-items:center;
+      color:#fff;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;left:0;right:0;top:0;bottom:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+      z-index:1;
+    }
+    .hero .bg{
+      position:absolute;inset:0;background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop'); background-size:cover;background-position:center;filter:brightness(0.95);
+    }
+    .hero .content{
+      position:relative;z-index:2;padding:36px;
+      max-width:900px;margin-left:24px;
+    }
+    .hero h1{margin:0;font-size:28px;letter-spacing:-0.5px}
+    .hero p{margin:12px 0 18px;color:rgba(255,255,255,0.95);font-size:16px;max-width:70%}
+    .hero .actions{display:flex;gap:12px}
+    .btn{background:var(--accent);color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;display:inline-block}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff}
+
+    /* Features / product cards */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:20px}
+    .card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(12,30,40,0.06);border:1px solid rgba(11,32,48,0.03)}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0 0 12px;color:#435a66;font-size:14px}
+    .card a{font-weight:600;color:var(--accent);text-decoration:none}
+
+    /* Utility strip */
+    .strip{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:22px;padding:14px;border-radius:10px;background:var(--muted)}
+
+    /* Footer */
+    footer{margin-top:30px;padding:24px 0;color:#6b7b83;font-size:14px;border-top:1px solid #eef2f4}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .hero p{max-width:100%}
+    }
+    @media (max-width:640px){
+      .site{padding:12px}
+      nav.desktop{display:none}
+      .menu-btn{display:inline-block}
+      .hero{min-height:260px}
+      .grid{grid-template-columns:1fr}
+      .brand .title{display:none}
+    }
+
+    /* mobile nav panel */
+    .mobile-nav{display:none;position:absolute;left:0;right:0;top:72px;background:#fff;padding:14px;border-bottom:1px solid #eef2f4;box-shadow:0 8px 30px rgba(8,20,30,0.06)}
+    .mobile-nav a{display:block;padding:10px 0;color:#0b2030;text-decoration:none}
+    .mobile-nav.show{display:block}
+  </style>
 </head>
 <body>
 
-<div class="login-box">
-    <h2>Login</h2>
-    <input id="username" type="text" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p id="error" style="color:red;"></p>
-</div>
+  <div class="site">
+    <header>
+      <div class="brand">
+        <img src="logo.png" class="logo" alt="Bank Logo">
 
-<script src="script.js"></script>
+        <div>
+          <div style="font-weight:700">NeoBro Bank</div>
+          <div style="font-size:12px;color:#4b5a65">Personal Banking</div>
+        </div>
+      </div>
+
+      <nav class="desktop" aria-label="Main navigation">
+        <a href="#accounts">Accounts</a>
+        <a href="#cards">Cards</a>
+        <a href="#mortgages">Loans</a>
+        <a href="#tools">Tools & calculators</a>
+        <a class="signin" href="login.html">Login</a>
+        <a class="cta" href="create-account.html">Open an account</a>
+      </nav>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    </header>
+
+    <div id="mobileNav" class="mobile-nav" role="menu" aria-hidden="true">
+      <a href="#accounts">Accounts</a>
+      <a href="#cards">Cards</a>
+      <a href="#mortgages">Loans</a>
+      <a href="#tools">Tools & calculators</a>
+      <a href="#signin">Sign in</a>
+      <a href="#open">Open an account</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" aria-label="Main hero">
+      <div class="bg" role="img" aria-label="People walking outside"></div>
+      <div class="content">
+        <h1>Banking made simple — accounts, cards & loans built for you</h1>
+        <p>Manage your money safely with our digital tools. Open an account online in minutes, check rates, and see product offers tailored to your needs.</p>
+        <div class="actions">
+          <a class="btn" href="#open">Open an account</a>
+          <a class="btn ghost" href="#learn">Learn more</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strip with quick links -->
+    <div class="strip" role="region" aria-label="Quick links">
+      <div style="display:flex;gap:12px;align-items:center">
+        <strong>Tools & calculators</strong>
+        <small style="color:#5b6b73">Compare accounts • Mortgage calculator • Credit card selector</small>
+      </div>
+      <div><a href="#tools" style="color:var(--accent);font-weight:600;text-decoration:none">Explore tools →</a></div>
+    </div>
+
+    <!-- Products grid -->
+    <main>
+      <div class="grid" style="margin-top:18px;">
+        <article id="accounts" class="card">
+          <h3>Accounts</h3>
+          <p>Everyday banking with easy access, mobile deposit and no-fuss transfers.</p>
+          <a href="#">See accounts →</a>
+        </article>
+
+        <article id="cards" class="card">
+          <h3>Credit cards</h3>
+          <p>Rewards, cash back and low interest options to match how you spend.</p>
+          <a href="#">Find the right card →</a>
+        </article>
+
+        <article id="mortgages" class="card">
+          <h3>Loans</h3>
+          <p>Fixed, variable and tools to help you buy or refinance your home.</p>
+          <a href="#">Get mortgage rates →</a>
+        </article>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-weight:700">Example Bank</div>
+          <div style="max-width:420px;color:#5b6b73">© <span id="yr"></span> Example Bank — Personal banking and financial services. Terms and conditions apply.</div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center">
+          <a href="#" style="text-decoration:none;color:var(--accent)">Contact us</a>
+          <a href="#" style="text-decoration:none;color:var(--accent)">Find a branch</a>
+          <a href="#" style="text-decoration:none;color:var(--accent)">Accessibility</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // small JS for mobile menu
+    const btn = document.getElementById('menuBtn');
+    const mobile = document.getElementById('mobileNav');
+    btn.addEventListener('click',() => {
+      const isShown = mobile.classList.toggle('show');
+      mobile.setAttribute('aria-hidden', !isShown);
+    });
+
+    // set copyright year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
